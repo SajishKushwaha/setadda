@@ -154,7 +154,7 @@ const SelectBus = () => {
   const handleCloseModal = () => {
     setModalOpen(false);
   };
-  // console.log(isCalender);
+  console.log(modalOpen);
   return (
     <>
       <Navbar />
@@ -187,7 +187,7 @@ const SelectBus = () => {
                   <Left />
                 </div>
                 <div className="col-span-6 md:border-[1px] border-primarycolors-textcolor/50 rounded-md h-fit  ">
-                  <Right setIsModalOpen={setModalOpen} isCal={isCalender} />
+                  <Right setIsModalOpen={modalOpen} isCal={isCalender} />
                 </div>
               </div>
             )}

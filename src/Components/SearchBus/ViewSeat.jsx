@@ -16,15 +16,16 @@ import VerticalSleeper from "./VerticalSleeper";
 const ViewSeat = ({
     seat_json,
     routeDetails,
-    booked_seat,
+    // booked_seat,
     totalSeats,
     seatPrice,
     busType,
-    departure,
+    departure, 
     arrival,
     date,
-    setIsModalOpen,
+    // setIsModalOpen,
 }) => {
+   
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [selectBoardingPoint, setSelectBoardingPoint] = useState("");
     const [selectDropPoint, setSelectDropPoint] = useState("");
@@ -32,12 +33,12 @@ const ViewSeat = ({
     const [isOpenDrop, setIsOpenDrop] = useState(false);
     const [isOpenBoard, setIsOpenBoard] = useState(false);
 
-    const alreadyBookedSeats = booked_seat;
+    // const alreadyBookedSeats = booked_seat;
     const boardingPoints = routeDetails;
     // console.log(boardingPoints);
     const droppingPoints = routeDetails;
 
-    // console.log(routeDetails)
+    
     let dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -63,7 +64,7 @@ const ViewSeat = ({
 
     const [showUpperBerth, setShowUpperBerth] = useState(false);
     const [showLowerBerth, setShowLowerBerth] = useState(true);
-    const [seatData, setSeatData] = useState(seat_json);
+    // const [seatData, setSeatData] = useState(seat_json);
 
     const toggleUpperBerth = () => {
         setShowUpperBerth((prev) => !prev);
@@ -103,215 +104,215 @@ const ViewSeat = ({
 
 
 
-    const renderSeating = () => {
-        const totalRows = Object.keys(seat_json);
-        // console.log(totalRows)
-        let selectedRows;
-        if (totalRows.length > 6) {
-            const mid = Math.floor(totalRows.length / 2);
-            selectedRows = showLowerBerth ? totalRows.slice(0, mid) : totalRows.slice(mid);
-        } else {
-            selectedRows = totalRows;
-        }
+//     const renderSeating = () => {
+//         // const totalRows = Object.keys(seat_json);
+//         // console.log(totalRows)
+//         let selectedRows;
+//         if (totalRows.length > 6) {
+//             const mid = Math.floor(totalRows.length / 2);
+//             selectedRows = showLowerBerth ? totalRows.slice(0, mid) : totalRows.slice(mid);
+//         } else {
+//             selectedRows = totalRows;
+//         }
 
-        return selectedRows.map((row, rowIndex) => {
-            const seats = seat_json[row];
-            // console.log(seats);
-            const seatValues = Object.values(seats);
-            // console.log(seatValues)
-            // Check if all seats in the row are empty
-            const allSeatsEmpty = seatValues.every(seat => seat.seat === "");
-            if (allSeatsEmpty) {
-                return (
-                    <div key={row} style={{ height: '20px' }}>
+//         return selectedRows.map((row, rowIndex) => {
+//             const seats = seat_json[row];
+//             // console.log(seats);
+//             const seatValues = Object.values(seats);
+//             // console.log(seatValues)
+//             // Check if all seats in the row are empty
+//             const allSeatsEmpty = seatValues.every(seat => seat.seat === "");
+//             if (allSeatsEmpty) {
+//                 return (
+//                     <div key={row} style={{ height: '20px' }}>
 
-                    </div>
-                );
-            }
+//                     </div>
+//                 );
+//             }
 
-            const seatsToRender = [];
-            for (let i = 0; i < seatValues.length; i++) {
-                // console.log(seatValues[i]);
+//             const seatsToRender = [];
+//             for (let i = 0; i < seatValues.length; i++) {
+//                 // console.log(seatValues[i]);
 
-                let seat = seatValues[i].seat; // Access the 'seat' property
-                // console.log(seat);
+//                 let seat = seatValues[i].seat; // Access the 'seat' property
+//                 // console.log(seat);
 
-                // console.log(seatValues[i + 1]);
+//                 // console.log(seatValues[i + 1]);
 
-              /*   if (rowIndex < totalRows.length - 1) {
-                    // Check for consecutive rows in the same column
-                    const nextRow = totalRows[rowIndex + 1];
-                    // console.log(seat_json[nextRow][i]?.seat);
-                    const nextSeat = seat_json[nextRow][i]?.seat;
-                    if (seat === nextSeat) {
-                        seatsToRender.push({ type: 'VerticalSleeper', value: seat });
-                        continue; // Skip the next seat as it's already combined
-                    }
-                }
- */
-                if (seat === seatValues[i + 1]?.seat) {
-                    i++; // Skip the next seat as it's already combined
-                    seatsToRender.push({ type: 'DoubleSeat', value: seat });
-                } else {
-                    seatsToRender.push({ type: 'Seat', value: seat });
-                }
-            }
+//               /*   if (rowIndex < totalRows.length - 1) {
+//                     // Check for consecutive rows in the same column
+//                     const nextRow = totalRows[rowIndex + 1];
+//                     // console.log(seat_json[nextRow][i]?.seat);
+//                     const nextSeat = seat_json[nextRow][i]?.seat;
+//                     if (seat === nextSeat) {
+//                         seatsToRender.push({ type: 'VerticalSleeper', value: seat });
+//                         continue; // Skip the next seat as it's already combined
+//                     }
+//                 }
+//  */
+//                 if (seat === seatValues[i + 1]?.seat) {
+//                     i++; // Skip the next seat as it's already combined
+//                     seatsToRender.push({ type: 'DoubleSeat', value: seat });
+//                 } else {
+//                     seatsToRender.push({ type: 'Seat', value: seat });
+//                 }
+//             }
 
-            return (
-                <div key={row} className="flex flex-col md:flex-row w-fit md:w-full justify-between">
-                    {seatsToRender.map((seat, index) => (
-                        <div key={index} className="">
-                            {seat.type === 'DoubleSeat' ? (
-                                <Sleeper
-                                    key={index}
-                                    seatNo={seat.value}
-                                    alreadyBookedSeats={alreadyBookedSeats}
-                                    handleSelectedSeats={handleSelectedSeats}
-                                    selectedSeats={selectedSeats}
-                                    setSelectedSeats={setSelectedSeats}
-                                    setIsModalOpen={setIsModalOpen}
-                                />
-                            ) : (
-                                <Seat
-                                    key={index}
-                                    seatNo={seat.value}
-                                    alreadyBookedSeats={alreadyBookedSeats}
-                                    handleSelectedSeats={handleSelectedSeats}
-                                    selectedSeats={selectedSeats}
-                                    setSelectedSeats={setSelectedSeats}
-                                    setIsModalOpen={setIsModalOpen}
-                                />
-                            )}
-                        </div>
-                    ))}
-                </div>
-            );
-        });
-    };
-
-
-    const renderSeating1 = () => {
-        // console.log(seatData);
-        const values = {};
-        let prvTable = [];
-        let prvTableUp = [];
-
-        const fetch = () => {
-            for (let row = 1; row <= 12; row++) {
-                const seats = seatData[row];
+//             return (
+//                 <div key={row} className="flex flex-col md:flex-row w-fit md:w-full justify-between">
+//                     {seatsToRender.map((seat, index) => (
+//                         <div key={index} className="">
+//                             {seat.type === 'DoubleSeat' ? (
+//                                 <Sleeper
+//                                     key={index}
+//                                     seatNo={seat.value}
+//                                     alreadyBookedSeats={alreadyBookedSeats}
+//                                     handleSelectedSeats={handleSelectedSeats}
+//                                     selectedSeats={selectedSeats}
+//                                     setSelectedSeats={setSelectedSeats}
+//                                     setIsModalOpen={setIsModalOpen}
+//                                 />
+//                             ) : (
+//                                 <Seat
+//                                     key={index}
+//                                     seatNo={seat.value}
+//                                     alreadyBookedSeats={alreadyBookedSeats}
+//                                     handleSelectedSeats={handleSelectedSeats}
+//                                     selectedSeats={selectedSeats}
+//                                     setSelectedSeats={setSelectedSeats}
+//                                     setIsModalOpen={setIsModalOpen}
+//                                 />
+//                             )}
+//                         </div>
+//                     ))}
+//                 </div>
+//             );
+//         });
+//     };
 
 
-                for (let i = 1; i <= 15; i++) {
-                    const seatKey = { row, seat: i };
-                    const seatInfo = seats ? seats[seatKey.seat] : null;
-                    const value = seatInfo ? seatInfo.seat : '';
+    // const renderSeating1 = () => {
+    //     // console.log(seatData);
+    //     const values = {};
+    //     let prvTable = [];
+    //     let prvTableUp = [];
 
-                    if (value !== '') {
-                        if (values[value]) {
-                            values[value]++;
-                        } else {
-                            values[value] = 1;
-                        }
-                    }
-                }
-            }
-        }
-        fetch();
-        console.log(values);
-        const renderRow = (row, isUpper) => {
-            const seats = seatData[row];
-            const rowSeats = []; // Store seats for the current row
-
-            for (let i = 1; i <= 15; i++) {
-                const seatKey = { row, seat: i };
-                const seatInfo = seats ? seats[seatKey.seat] : null;
-                const value = seatInfo ? seatInfo.seat : '';
-
-                if (value !== '') {
-                    if (values[value] === 2) {
-                        const adjacentSeats = getAdjacentSeats(row, i);
-                        // console.log(adjacentSeats);
-                        if (isUpper) {
-                            processAdjacentSeats(adjacentSeats, value, prvTableUp, rowSeats);
-                        } else {
-                            processAdjacentSeats(adjacentSeats, value, prvTable, rowSeats);
-                        }
-                    } else {
-                        rowSeats.push(
-                            <td key={`td-${row}-${i}`}>
-                                <Seat
-                                    key={`td-${row}-${i}`}
-                                    seatNo={value}
-                                    alreadyBookedSeats={alreadyBookedSeats}
-                                    handleSelectedSeats={handleSelectedSeats}
-                                    selectedSeats={selectedSeats}
-                                    setSelectedSeats={setSelectedSeats}
-                                    setIsModalOpen={setIsModalOpen}
-                                />
-                            </td>
-                        );
-                    }
-                } else {
-                    rowSeats.push(
-                        <td key={`td-${row}-${i}`}>
-                            <div className="h-5"></div>
-                        </td>
-                    );
-                }
-            }
-
-            // Add the rowSeats to the appropriate table
-            if (isUpper) {
-                prvTableUp.push(rowSeats);
-            } else {
-                prvTable.push(rowSeats);
-            }
-        };
+    //     const fetch = () => {
+    //         for (let row = 1; row <= 12; row++) {
+    //             const seats = seatData[row];
 
 
+    //             for (let i = 1; i <= 15; i++) {
+    //                 const seatKey = { row, seat: i };
+    //                 const seatInfo = seats ? seats[seatKey.seat] : null;
+    //                 const value = seatInfo ? seatInfo.seat : '';
 
-        const getAdjacentSeats = (row, seat) => {
-            const adjacentSeats = [];
-            if (row > 1) adjacentSeats.push({ row: row - 1, seat: seat });
-            if (row < 14) adjacentSeats.push({ row: row + 1, seat: seat });
-            if (seat > 1) adjacentSeats.push({ row: row, seat: seat - 1 });
-            if (seat < 15) adjacentSeats.push({ row: row, seat: seat + 1 });
-            return adjacentSeats;
-        };
+    //                 if (value !== '') {
+    //                     if (values[value]) {
+    //                         values[value]++;
+    //                     } else {
+    //                         values[value] = 1;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     fetch();
+    //     // console.log(values);
+    //     const renderRow = (row, isUpper) => {
+    //         const seats = seatData[row];
+    //         const rowSeats = []; // Store seats for the current row
 
-        const processAdjacentSeats = (adjacentSeats, value, table, rowSeats) => {
-            adjacentSeats.forEach((adjSeat) => {
-                // console.log(adjSeat)
-                const adjValue = seatData[adjSeat.row]?.[adjSeat.seat]?.seat || '';
-                if (adjValue === value) {
-                    rowSeats.push(
-                        <td key={`td-${adjSeat.row}-${adjSeat.seat}`} >
-                            <Sleeper
-                                key={`td-${adjSeat.row}-${adjSeat.seat}`}
-                                seatNo={value}
-                                alreadyBookedSeats={alreadyBookedSeats}
-                                handleSelectedSeats={handleSelectedSeats}
-                                selectedSeats={selectedSeats}
-                                setSelectedSeats={setSelectedSeats}
-                                setIsModalOpen={setIsModalOpen}
-                            />
-                        </td>
-                    );
-                }
-            });
-        };
+    //         for (let i = 1; i <= 15; i++) {
+    //             const seatKey = { row, seat: i };
+    //             const seatInfo = seats ? seats[seatKey.seat] : null;
+    //             const value = seatInfo ? seatInfo.seat : '';
 
-        for (let row = 1; row <= 12; row++) {
-            if (showUpperBerth && row >= 7) {
-                renderRow(row, true);
-            } else if (showLowerBerth && row <= 6) {
-                renderRow(row, false);
-            }
-        }
+    //             if (value !== '') {
+    //                 if (values[value] === 2) {
+    //                     const adjacentSeats = getAdjacentSeats(row, i);
+    //                     // console.log(adjacentSeats);
+    //                     if (isUpper) {
+    //                         processAdjacentSeats(adjacentSeats, value, prvTableUp, rowSeats);
+    //                     } else {
+    //                         processAdjacentSeats(adjacentSeats, value, prvTable, rowSeats);
+    //                     }
+    //                 } else {
+    //                     rowSeats.push(
+    //                         <td key={`td-${row}-${i}`}>
+    //                             <Seat
+    //                                 key={`td-${row}-${i}`}
+    //                                 seatNo={value}
+    //                                 // alreadyBookedSeats={alreadyBookedSeats}
+    //                                 handleSelectedSeats={handleSelectedSeats}
+    //                                 selectedSeats={selectedSeats}
+    //                                 setSelectedSeats={setSelectedSeats}
+    //                                 setIsModalOpen={setIsModalOpen}
+    //                             />
+    //                         </td>
+    //                     );
+    //                 }
+    //             } else {
+    //                 rowSeats.push(
+    //                     <td key={`td-${row}-${i}`}>
+    //                         <div className="h-5"></div>
+    //                     </td>
+    //                 );
+    //             }
+    //         }
 
-        // console.log(prvTable)
-        return { prvTable, prvTableUp };
-    };
+    //         // Add the rowSeats to the appropriate table
+    //         if (isUpper) {
+    //             prvTableUp.push(rowSeats);
+    //         } else {
+    //             prvTable.push(rowSeats);
+    //         }
+    //     };
+
+
+
+    //     const getAdjacentSeats = (row, seat) => {
+    //         const adjacentSeats = [];
+    //         if (row > 1) adjacentSeats.push({ row: row - 1, seat: seat });
+    //         if (row < 14) adjacentSeats.push({ row: row + 1, seat: seat });
+    //         if (seat > 1) adjacentSeats.push({ row: row, seat: seat - 1 });
+    //         if (seat < 15) adjacentSeats.push({ row: row, seat: seat + 1 });
+    //         return adjacentSeats;
+    //     };
+
+    //     const processAdjacentSeats = (adjacentSeats, value, table, rowSeats) => {
+    //         adjacentSeats.forEach((adjSeat) => {
+    //             // console.log(adjSeat)
+    //             const adjValue = seatData[adjSeat.row]?.[adjSeat.seat]?.seat || '';
+    //             if (adjValue === value) {
+    //                 rowSeats.push(
+    //                     <td key={`td-${adjSeat.row}-${adjSeat.seat}`} >
+    //                         <Sleeper
+    //                             key={`td-${adjSeat.row}-${adjSeat.seat}`}
+    //                             seatNo={value}
+    //                             // alreadyBookedSeats={alreadyBookedSeats}
+    //                             handleSelectedSeats={handleSelectedSeats}
+    //                             selectedSeats={selectedSeats}
+    //                             setSelectedSeats={setSelectedSeats}
+    //                             setIsModalOpen={setIsModalOpen}
+    //                         />
+    //                     </td>
+    //                 );
+    //             }
+    //         });
+    //     };
+
+    //     for (let row = 1; row <= 12; row++) {
+    //         if (showUpperBerth && row >= 7) {
+    //             renderRow(row, true);
+    //         } else if (showLowerBerth && row <= 6) {
+    //             renderRow(row, false);
+    //         }
+    //     }
+
+    //     // console.log(prvTable)
+    //     return { prvTable, prvTableUp };
+    // };
 
     // const { prvTable, prvTableUp } = renderSeating1();
 
@@ -355,7 +356,7 @@ const ViewSeat = ({
 
                                 <div className="flex  p-2 md:flex-col justify-evenly md:justify-between  ">
 
-                                    {renderSeating()}
+                                    {/* {renderSeating()} */}
                                 </div>
                             </div>
 

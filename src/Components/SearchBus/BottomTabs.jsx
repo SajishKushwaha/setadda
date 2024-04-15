@@ -3,7 +3,7 @@ import { useState } from "react";
 import ViewSeat from "./ViewSeat";
 
 const BottomTabs = (props) => {
-  console.log(props)
+  // console.log(props)
   const [showViewSeat, setshowViewSeat] = useState(false);
   const handleViewSeat = () => {
     setshowViewSeat(!showViewSeat);
@@ -34,14 +34,20 @@ const BottomTabs = (props) => {
           " onClick={handleButtonClick}>Show Route</button>
 
           
-          {/* {props.seat_json && <button
+       {/* {props.seat_json && <button
             type="submit"
             onClick={handleViewSeat}
             className="py-1  px-2 bg-primarycolors-red  mx-3 text-primarycolors-white text-lg  rounded-md "
           >
             {!showViewSeat ? "View Seat" : "Hide seat"}
           </button>} */}
-
+          <button
+            type="submit"
+            onClick={handleViewSeat}
+            className="py-1  px-2 bg-primarycolors-red  mx-3 text-primarycolors-white text-lg  rounded-md "
+          >
+            {!showViewSeat ? "View Seat" : "Hide seat"}
+          </button>
 
 
         </div>

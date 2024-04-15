@@ -272,7 +272,7 @@ const BusBox = ({
 
   return (
     <>
-       {/* <div className="hidden   md:block p-2">
+       <div className="hidden   md:block p-2">
         <div className="p-2 w-full hover:shadow-xl rounded-md border-[1px] border-primarycolors-textcolor/30 hover:scale-[1.01] bg-primarycolors-white transition-all">
           <div>
             <div className=" md:flex w-full justify-between">
@@ -380,7 +380,7 @@ const BusBox = ({
             </div>
           </div>
         )}
-      </div> */}
+      </div>
    
       <div className="hidden   md:block p-2">
         <div className=" bg-primarycolors-white rounded-md  hover:shadow-md">
@@ -999,10 +999,10 @@ const BusBox = ({
 
             <div className=" grid grid-cols-5">
               <div className="col-span-3 flex items-center text-xs gap-1 pl-2">
-                {/* <p className=" text-primarycolors-textcolor"> 3+ Amenities</p> |
+                <p className=" text-primarycolors-textcolor"> 3+ Amenities</p> |
                 <button className=" text-primarycolors-red">
                   View More...
-                </button> */}
+                </button>
               </div>
               <div className=" col-span-2 flex justify-end">
                 <button

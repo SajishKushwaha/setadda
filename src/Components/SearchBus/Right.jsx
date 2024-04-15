@@ -301,7 +301,7 @@ const Right = ({ setIsModalOpen, isCal }) => {
   // useEffect(() => {
   //   console.log("isCalender value:", isCal);
   // }, [isCal]);
-
+  // console.log(setIsModalOpen)
   return (
     <div>
       {/*   {departure},{arrival},{date} */}
@@ -444,9 +444,10 @@ const Right = ({ setIsModalOpen, isCal }) => {
           No Bus Found.
         </div>
       )}
-   
+    
       <div className="p-2 sm:p-4 sm:px-2 mb-20 sm:mb-0">
         {filteredMatchedBuses.map((bus, index) => {
+        
           return (
             <BusBox
               {...bus}
@@ -455,8 +456,11 @@ const Right = ({ setIsModalOpen, isCal }) => {
               departure={departure}
               arrival={arrival}
               setIsModalOpen={setIsModalOpen}
+
             />
+            
           );
+          
         })}
       </div>
     </div>
